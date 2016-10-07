@@ -1,6 +1,8 @@
 '''Implements a running median calculator.'''
 
 
+import random
+import statistics
 from heap import Heap
 
 
@@ -14,6 +16,8 @@ def _median(smallers, largers):
 
 
 def running_median(stream):
+    '''Compute the running median on a stream. Adopt for an appropriate
+    stream type.'''
     smallers, largers, i = Heap([], "max"), Heap([], "min"), 2
     smallers.push(min(stream[0:2]))
     largers.push(max(stream[0:2]))
@@ -21,6 +25,7 @@ def running_median(stream):
     median = (stream[0] + stream[1]) / 2.
     yield median
     while i < len(stream):
+        # pylint: disable=expression-not-assigned
         smallers.push(stream[i]) if \
             stream[i] < smallers.root else \
             largers.push(stream[i])
@@ -34,6 +39,9 @@ def running_median(stream):
 
 
 if __name__ == '__main__':
-    INPUT = [12, 4, 5, 3, 8, 7]
-    OUTPUT = [12., 8., 5., 4.5, 5., 6.]
-    assert list(running_median(INPUT)) == OUTPUT
+    SIZE = int(random.uniform(0, 50))
+    SAMPLE = list(set(int(random.uniform(1, 100)) for x in range(SIZE)))
+    RM = running_median(SAMPLE)
+    for n in range(1, len(SAMPLE) + 1):
+        assert next(RM) == statistics.median(SAMPLE[:n])
+    print("All tests passed! :)")
