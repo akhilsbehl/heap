@@ -17,7 +17,7 @@ def heapsort(array, increasing=True):
 
 if __name__ == '__main__':
     SIZE = int(random.uniform(0, 100))
-    SAMPLE = list((int(random.uniform(1, 100)) for x in range(SIZE)))
+    SAMPLE = list(set(int(random.uniform(1, 100)) for x in range(SIZE)))
     assert heapsort(SAMPLE) == sorted(SAMPLE)
     assert heapsort(SAMPLE, increasing=False) == sorted(SAMPLE, reverse=True)
     print('All tests passed! :)')

@@ -83,11 +83,8 @@ class Heap(object):
 
 if __name__ == "__main__":
 
-    while True:
-        SIZE = int(random.uniform(0, 10))
-        SAMPLE = [int(random.uniform(1, 1000)) for x in range(SIZE)]
-        if len(SAMPLE) > 0 and len(SAMPLE) == len(set(SAMPLE)):
-            break
+    SIZE = int(random.uniform(1, 10))
+    SAMPLE = list(set([int(random.uniform(1, 1000)) for x in range(SIZE)]))
 
     MAX_HEAP = Heap(SAMPLE, "max")
     MIN_HEAP = Heap(SAMPLE, "min")
